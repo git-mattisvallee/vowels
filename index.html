@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        function changerImage() {
+            let indexListeDeroulante = document.getElementById('listeDeroulante').selectedIndex;
+            let sourceImg;
+            let altImg;
+
+            if (indexListeDeroulante === 0) {
+                sourceImg = "https://gitlab.univ-nantes.fr/remi-garcia/tp-l2-bio/-/raw/master/TP/castor.png";
+                altImg = "Image d'un castor";
+            } else if (indexListeDeroulante === 1) {
+                sourceImg = "https://gitlab.univ-nantes.fr/remi-garcia/tp-l2-bio/-/raw/master/TP/gorille.png";
+                altImg = "Image d'un gorille";
+            } else if (indexListeDeroulante === 2) {
+                sourceImg = "https://gitlab.univ-nantes.fr/remi-garcia/tp-l2-bio/-/raw/master/TP/fossa.png";
+                altImg = "Image d'un fossa";
+            }
+            document.getElementById('imageChangeante').src = sourceImg;
+            document.getElementById('imageChangeante').alt = altImg;
+        }
+
+        function reinitialisation() {
+            let img = document.getElementById('imageChangeante');
+            img.src = "https://gitlab.univ-nantes.fr/remi-garcia/tp-l2-bio/-/raw/master/TP/gorille.png";
+        }
+
+        function compterNbVoyelles() {
+
+            const voyelles = ["a", "e", "i", "o", "u", "y"];
+
+            let texte = document.getElementById('texteUtilisateur').value;
+            let compteur = 0;
+
+            for (let lettre of texte.toLowerCase()) {
+                if (voyelles.includes(lettre)) {
+                    compteur++;
+                }
+            }
+
+            let resultVoyellesCompteur = document.getElementById('afficheNbVoyelles');
+            resultVoyellesCompteur.value = compteur;
+        }
+
+        function compterNbCaracteres() {
+
+            let affichage = document.getElementById('afficher');
+            let cacher = document.getElementById('cacher');
+
+            if (affichage.checked === true) {
+                let texte = document.getElementById('texteUtilisateur').value.length;
+                let resultCaracteresCompteur = document.getElementById('afficheNbCaracteres');
+                resultCaracteresCompteur.value = texte;
+            } else if (cacher.checked === true) {
+                let resultCaracteresCompteur = document.getElementById('afficheNbCaracteres');
+                resultCaracteresCompteur.value = "";
+            }
+        }
+
+    </script>
+</head>
+<body style="background-color:#AAFFAA;">
+<h1>TP noté</h1>
+<div>
+    <form action="">
+        <table border="1" cellpadding="2" cellspacing="2" style="border-collapse: collapse;">
+            <tr>
+                <td align="left">
+                    <div>
+                        <label for="listeDeroulante">Choisissez l'image :</label>
+                        <select id="listeDeroulante" onChange="changerImage()">
+                            <option>Castor</option>
+                            <option selected="selected">Gorille</option>
+                            <option>Fossa</option>
+                        </select>
+                    </div>
+                    <div style="margin-top: 25px">
+                        <input type="radio" name="choixAffichage" id="afficher">
+                        <label for="afficher">Afficher la taille du texte</label><br>
+                        <input type="radio" name="choixAffichage" id="cacher">
+                        <label for="cacher">Ne pas afficher</label>
+                    </div>
+                    <div style="margin-top: 25px">
+                        <input type="text" id="texteUtilisateur" value="hermine" onKeyUp="compterNbCaracteres();"><br>
+                    </div>
+                    <div style="margin-top: 25px">
+                        <input type="button" value="Compter les voyelles" onclick="compterNbVoyelles()">
+                        <input type="reset" value="Reset" onclick="reinitialisation()">
+                    </div>
+                </td>
+                <td>
+                    <label for="afficheNbVoyelles">Nombre de voyelles :</label><br>
+                    <input type="text" id="afficheNbVoyelles" disabled/><br><br>
+                    <label for="afficheNbCaracteres">Nombre de caractères :</label><br>
+                    <input type="text" id="afficheNbCaracteres" disabled/>
+                </td>
+                <td>
+                    <img id="imageChangeante" width="200" alt=""
+                         src="https://gitlab.univ-nantes.fr/remi-garcia/tp-l2-bio/-/raw/master/TP/gorille.png"><br/>
+                    <a href="https://fr.wikipedia.org/wiki/Gorille" target="_blank"> Lien vers Wikipédia</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<hr>
+<div>
+    <h3>Énoncé</h3>
+    Il faut répondre en modifiant le fichier proposé et le déposer sur Madoc en fin de séance.
+    <ol>
+        <li>
+            <p>Faire en sorte que les deux cases à cocher ne puissent être sélectionnées en même temps. Si l'utilisateur
+                essaie de cocher la seconde alors que la première est déjà cochée, cette dernière doit se décocher, et
+                vice versa. Cette question ne fait intervenir que du HTML.</p>
+        </li>
+        <li>
+            <p>Une fonction nommée <code>changerImage()</code> est disponible dans la partie script de la page. Ajouter
+                au tableau une colonne contenant une image dont le contenu sera changé par cette fonction. En
+                particulier, il faut que l'identifiant de l'image soit <code>"imageChangeante"</code> et il faut ajouter
+                l'appel de la fonction dans le menu déroulant.<br/>
+                L'image par défaut doit être celle du gorille avec un texte alternatif adapté et ne doit pas prendre
+                toute la page !</p>
+        </li>
+        <li>
+            <p>Dans cette nouvelle colonne, sous l'image, ajouter le texte <code>Lien vers Wikipédia</code> avec un lien
+                vers la page Wikipédia suivante : <code>https://fr.wikipedia.org/wiki/Gorille</code>.</p>
+        </li>
+        <li>
+            <p>En fin de première colonne, ajouter un bouton reset pour que tous les champs reviennent à leur état
+                initial. Penser également à réinitialiser l'image qui doit redevenir le gorille.</p>
+        </li>
+        <li>
+            <p>Écrire une fonction nommée <code>compterNbVoyelles()</code> qui écrit dans le champs de texte
+                d'identifiant <code>"afficheNbVoyelles"</code> le nombre de voyelles présentes dans le texte de la
+                première colonne avec <code>"hermine"</code> par défaut.<br/>
+                Le texte est supposé (vous n'avez pas à le vérifier) tout en minuscules et sans accent.<br/>
+                Cliquer sur le bouton <code>Compter les voyelles</code> doit permettre d'exécuter la fonction <code>compterNbVoyelles()</code>.
+            </p>
+        </li>
+        <li>
+            <p>Compléter le contenu de la fonction nommée <code>compterNbCaracteres()</code> afin qu'elle écrive dans le
+                champs de texte d'identifiant <code>"afficheNbCaracteres"</code> le nombre de caractères présents dans
+                le texte de la première colonne avec <code>"hermine"</code> par défaut.<br/>
+                Il n'est pas nécessaire pour vous de gérer l'appel de cette fonction. Elle est déjà appelée via le
+                <code>onKeyUp</code> de la zone de texte d'identifiant <code>texteUtilisateur</code>, ainsi à chaque
+                caractère enlevé ou ajouté cela doit mettre à jour le nombre de caractères.</p>
+        </li>
+        <li>
+            <p>Conditionner la mise à jour du calcul du nombre de caractères au fait que le bouton radio <code>Afficher
+                la taille du texte</code> soit coché.</p>
+        </li>
+        <li>
+            <p>Empêcher l'utilisateur d'écrire du texte dans les zones affichant le nombre de voyelles et de
+                caractères.</p>
+        </li>
+    </ol>
+</div>
+</body>
+</html>
